@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="tree-view-item">
+    <template>
+
+        <style>
+            :host {
+                display: block;
+            }
+
+            .sublist {
+                padding-left: 30px;
+            }
+
+            .sublist2 {
+                padding-left: 50px;
+            }
+
+            .sublist3 {
+                padding-left: 70px;
+            }
+
+            .sublist4 {
+                padding-left: 90px;
+            }
+        </style>
+
+
+
+        <paper-submenu>
+            <paper-icon-item class$="menu-trigger sublist{{_determinaClass(nivel)}}" on-click="_trocaIcon">
+                <iron-icon icon="{{data.icon}}" item-icon></iron-icon>
+                {{data.name}}
+            </paper-icon-item>
+            <template is="dom-if" if="{{_temFilhos(data)}}">
+                <paper-menu class="menu-content" multi>
+                    <template is="dom-repeat" items="{{data.children}}">
+                        <tree-view-item data="{{item}}" nivel="{{_determinaNivel()}}"></tree-view-item>
+                    </template>
+                </paper-menu>
+            </template>
+        </paper-submenu>
+
+
+
+    </template>
+    <script>
+        Polymer({
+            is: 'tree-view-item',
+            properties: {
+                data: {
+                    type: Object,
+                    value: {}
+                },
+                nivel: {
+                    type: Number
+                }
+            },
+            _determinaNivel: function() {
+                return this.nivel + 1;
+            },
+            _determinaClass: function(nivel) {
+                if (nivel > 1) {
+                    return this.nivel;
+                }
+                return '';
+            },
+            _temFilhos: function(data) {
+              return (data.children && data.children.length>0);
+            },
+            _trocaIcon: function(elemento) {
+              console.log(elemento);
+            }
+        });
+    </script>
+</dom-module>

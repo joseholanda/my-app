@@ -3,23 +3,66 @@
 <link rel="import" href="tree-view.html">
 
 <dom-module id="tjdft-elements">
-  <template>
-    <style>
-      :host {
-        display: block;
-        padding: 16px;
-      }
-    </style>
-    <paper-input label="Input label"></paper-input>
+    <template>
+        <style>
+            :host {
+                display: block;
+                padding: 16px;
+            }
+        </style>
+        <paper-input label="Input label"></paper-input>
 
 
-    <tree-view></tree-view>
+        <tree-view data="{{data}}"></tree-view>
 
-  </template>
-  <script>
-    Polymer({
-      is: 'tjdft-elements',
+    </template>
+    <script>
+        Polymer({
+            is: 'tjdft-elements',
+            properties: {
+                data: {
+                    type: Array,
+                    value: [
+                      {
+                        "name": "Pai A",
+                        "icon": "add",
+                        "children": [{
+                            "name": "Filho A",
+                            "icon": "add",
+                            "children": [{
+                                "name": "Neto A"
+                            }]
+                        }, {
+                            "name": "Filho B",
+                            "icon": "add",
+                            "children": [{
+                                "name": "Neto B",
+                                "icon": "add",
+                                "children": [{
+                                    "name": "bisneto B"
+                                }]
+                            }]
+                        }, {
+                            "name": "Filho C",
+                            "icon": "add",
+                            "children": [{
+                                "name": "Neto C"
+                            }]
+                        }, {
+                            "name": "Filho D",
+                            "icon": "add",
+                            "children": [{
+                                "name": "Neto D"
+                            }]
+                        }]
+                    }, {
+                        "name": "Pai B"
+                    },{
+                        "name": "Pai C"
+                    }]
+                }
+            }
 
-    });
-  </script>
+        });
+    </script>
 </dom-module>

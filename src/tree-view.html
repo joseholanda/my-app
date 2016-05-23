@@ -1,45 +1,32 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="tree-view-item.html">
 
 
 <dom-module id="tree-view">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
 
-    <paper-menu>
-
-        <paper-item class="menu-trigger">Topics</paper-item>
-        <paper-submenu>
-          <paper-menu class="menu-content">
-            <paper-item>Topic 1</paper-item>
-            <paper-item>Topic 2</paper-item>
-            <paper-item>Topic 3</paper-item>
-          </paper-menu>
-      </paper-submenu>
-      <paper-submenu>
-        <paper-item class="menu-trigger">Faves</paper-item>
-        <paper-menu class="menu-content">
-          <paper-item>Fave 1</paper-item>
-          <paper-item>Fave 2</paper-item>
+        <paper-menu attr-for-item-title="label" multi>
+            <template is="dom-repeat" items="{{data}}">
+                <tree-view-item id="raiz" data="{{item}}" nivel="1"></tree-view-item>
+            </template>
         </paper-menu>
-      </paper-submenu>
-      <paper-submenu disabled>
-        <paper-item class="menu-trigger">Unavailable</paper-item>
-        <paper-menu class="menu-content">
-          <paper-item>Disabled 1</paper-item>
-          <paper-item>Disabled 2</paper-item>
-        </paper-menu>
-      </paper-submenu>
-    </paper-menu>
 
-  </template>
-  <script>
-    Polymer({
-      is: 'tree-view',
+    </template>
+    <script>
+        Polymer({
+            is: 'tree-view',
+            properties: {
+                data: {
+                    type: Array,
+                    value: []
+                }
 
-    });
-  </script>
+            }
+        });
+    </script>
 </dom-module>
