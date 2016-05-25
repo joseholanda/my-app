@@ -33,7 +33,7 @@
                 {{data.name}}
             </paper-item>
             <template is="dom-if" if="{{_temFilhos(data)}}">
-                <paper-menu class="menu-content" multi>
+                <paper-menu class="menu-content">
                     <template is="dom-repeat" items="{{data.children}}">
                         <tree-view-item data="{{item}}" nivel="{{_determinaNivel()}}"></tree-view-item>
                     </template>
@@ -53,7 +53,8 @@
                     value: {}
                 },
                 nivel: {
-                    type: Number
+                    type: Number,
+                    value: 1
                 }
             },
             _determinaNivel: function() {
@@ -61,14 +62,15 @@
             },
             _determinaClass: function(nivel) {
                 if (nivel > 1) {
-                    return this.nivel;
+                    return nivel;
                 }
                 return '';
             },
             _temFilhos: function(data) {
-              return (data.children && data.children.length>0);
+              return (data && data.children && data.children.length>0);
             },
             _trocaIcon: function(e) {
+
               let itemName = '#'+e.currentTarget.getAttribute("data-name");
 
               if ( this.$$(itemName).icon === 'remove') {
@@ -80,6 +82,7 @@
             _getDataName: function(dataName) {
               return dataName.split(' ').join('');
             }
+
         });
     </script>
 </dom-module>
