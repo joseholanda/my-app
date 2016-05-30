@@ -42,19 +42,11 @@
 
             </paper-submenu>
         </template>
-        <template is="dom-if" if="{{_naoTemFilhos(data, nivel)}}">
+        <template is="dom-if" if="{{_naoTemFilhos(data)}}">
             <paper-item class$="sublist{{_determinaClass(nivel)}}" data-name$="{{_getDataName(data.name)}}" on-tap="_trocaIcon">
                 <iron-icon id="{{_getDataName(data.name)}}" icon="{{data.icon}}"></iron-icon>
                 {{data.name}}
             </paper-item>
-        </template>
-        <template is="dom-if" if="{{_naoTemFilhosNivel1(data, nivel)}}">
-          <paper-menu class="menu-content">
-            <paper-item class$="sublist{{_determinaClass(nivel)}}" data-name$="{{_getDataName(data.name)}}" on-tap="_trocaIcon">
-                <iron-icon id="{{_getDataName(data.name)}}" icon="{{data.icon}}"></iron-icon>
-                {{data.name}}
-            </paper-item>
-          </paper-menu>
         </template>
 
 
@@ -85,11 +77,8 @@
             _temFilhos: function(data) {
                 return (data && data.children && data.children.length > 0);
             },
-            _naoTemFilhos: function(data, nivel) {
-                return ( (data.children == null || data.children.length === 0) && nivel > 1);
-            },
-            _naoTemFilhosNivel1: function(data, nivel) {
-                return ( (data.children == null || data.children.length === 0) && nivel == 1);
+            _naoTemFilhos: function(data) {
+                return (data.children == null || data.children.length === 0);
             },
             _trocaIcon: function(e) {
 
