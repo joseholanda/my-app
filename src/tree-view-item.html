@@ -43,8 +43,8 @@
             </paper-submenu>
         </template>
         <template is="dom-if" if="{{_naoTemFilhos(data)}}">
-            <paper-item class$="sublist{{_determinaClass(nivel)}}" data-name$="{{_getDataName(data.name)}}" on-tap="_trocaIcon">
-                <iron-icon id="{{_getDataName(data.name)}}" icon="{{data.icon}}"></iron-icon>
+            <paper-item class$="sublist{{_determinaClass(nivel)}}" data-name$="{{_getDataName(data.name)}}" on-tap="_trocaIcon" on-dblclick="_itemSelecionado">
+                <iron-icon id="{{_getDataName(data.name)}}" icon="{{data.icon}}" ></iron-icon>
                 {{data.name}}
             </paper-item>
         </template>
@@ -65,6 +65,11 @@
                     value: 1
                 }
             },
+            /**
+             * Determina o nível do nó da árvore.
+             *
+             * @param {nivel} retorna o nível do menu.
+             */
             _determinaNivel: function() {
                 return this.nivel + 1;
             },
@@ -92,6 +97,10 @@
             },
             _getDataName: function(dataName) {
                 return dataName.split(' ').join('');
+            },
+            _itemSelecionado: function(e) {
+                let itemName = '#' + e.currentTarget.getAttribute("data-name");
+                alert(itemName);
             }
 
         });

@@ -1,6 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 
 
 <link rel="import" href="tree-view.html">
@@ -12,8 +16,37 @@
                 display: block;
                 padding: 16px;
             }
+
+            paper-card {
+              --paper-card-header: {background: #0aa89e;}
+              --paper-card-header-color: white;
+                width: 100%;
+            }
+
+            paper-button {
+              color: #0aa89e;
+            }
+
+            paper-checkbox {
+                display: block;
+                margin-top: 15px;
+
+            }
         </style>
-        <paper-input label="Input label"></paper-input>
+        <paper-card heading="Cadastro" class="verde">
+            <div class="card-content">
+                <paper-input label="Email" type="email">
+                </paper-input>
+                <paper-input label="Senha" type="password"></paper-input>
+                <paper-input label="Confirma senha" type="password"></paper-input>
+                <paper-checkbox>Manter conectado</paper-checkbox>
+            </div>
+
+            <div class="card-actions">
+                <paper-button>Criar cadastro</paper-button>
+            </div>
+        </paper-card>
+
 
 
         <tree-view data="{{data}}"></tree-view>
