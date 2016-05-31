@@ -3,8 +3,12 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<script src="../bower_components/Sortable/Sortable.min.js" charset="utf-8"></script>
 
 
 <link rel="import" href="tree-view.html">
@@ -18,21 +22,50 @@
             }
 
             paper-card {
-              --paper-card-header: {background: #0aa89e;}
-              --paper-card-header-color: white;
+                margin-bottom: 20px;
                 width: 100%;
+                --paper-card-header-color: white;
+                --paper-card-header: {
+                    background: #0aa89e;
+                }
             }
 
             paper-button {
-              color: #0aa89e;
+                color: #0aa89e;
             }
 
             paper-checkbox {
                 display: block;
                 margin-top: 15px;
-
+            }
+            paper-listbox paper-item{
+              cursor: move;
             }
         </style>
+
+        <paper-card heading="Drag and drop" class="verde">
+            <div class="card-content">
+                <paper-listbox id="itens">
+                    <paper-item>Item 1</paper-item>
+                    <paper-item>Item 2</paper-item>
+                    <paper-item>Item 3</paper-item>
+                    <paper-item>Item 4</paper-item>
+                    <paper-item>Item 5</paper-item>
+                </paper-listbox>
+                <script>
+
+                </script>
+            </div>
+        </paper-card>
+
+
+
+        <paper-card heading="Tree-view" class="verde">
+            <div class="card-content">
+                <tree-view data="{{data}}"></tree-view>
+            </div>
+        </paper-card>
+
         <paper-card heading="Cadastro" class="verde">
             <div class="card-content">
                 <paper-input label="Email" type="email">
@@ -48,13 +81,14 @@
         </paper-card>
 
 
-
-        <tree-view data="{{data}}"></tree-view>
-
     </template>
     <script>
         Polymer({
             is: 'tjdft-elements',
+            ready: function() {
+              var el = Polymer.dom(this.root).querySelector('#itens');
+              var sortable = Sortable.create(el);
+            },
             properties: {
                 data: {
                     type: Array,
