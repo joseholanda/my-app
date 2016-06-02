@@ -19,9 +19,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="elements.html">
 
@@ -65,6 +68,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding-left: 32px;
       }
 
+      div[role="listbox"] {
+        border: 1px solid #e5e5e5;
+      }
+      .avatar {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--paper-amber-500);
+      }
+      .blue {
+        background-color: var(--paper-light-blue-300);
+      }
+
 
     </style>
 
@@ -78,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed>
 
       <!-- Drawer content -->
-      <app-drawer>
+      <app-drawer swipe-open>
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">View One</a>
@@ -87,7 +105,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a name="tjdft-elements" href="/tjdft-elements">tjdft</a>
         </iron-selector>
       </app-drawer>
-
+      <app-drawer id="endDrawer" align="end" swipe-open>
+        <div role="listbox">
+          <paper-icon-item>
+            <div class="avatar blue" item-icon></div>
+            <paper-item-body two-line>
+              <div>Photos</div>
+              <div secondary>Jan 9, 2014</div>
+            </paper-item-body>
+            <paper-icon-button icon="star" alt="favourite this!">
+            </paper-icon-button>
+          </paper-icon-item>
+          <paper-icon-item>
+            <div class="avatar" item-icon></div>
+            <paper-item-body two-line>
+              <div>Recipes</div>
+              <div secondary>Jan 17, 2014</div>
+            </paper-item-body>
+            <paper-icon-button icon="star" alt="favourite this!">
+            </paper-icon-button>
+          </paper-icon-item>
+        </div>
+      </app-drawer>
       <!-- Main content -->
       <app-header-layout has-scrolling-region>
 
@@ -95,6 +134,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div title>My App</div>
+            <paper-icon-button icon="info" on-click="showRightDrawer"></paper-icon-button>
           </app-toolbar>
         </app-header>
 
@@ -126,13 +166,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
       },
+      showRightDrawer: function() {
+        this.$.endDrawer.toggle();
+      },
 
       observers: [
         '_routePageChanged(routeData.page)'
       ],
 
       _routePageChanged: function(page) {
-        this.page = page || 'view1';
+        this.page = page || 'tjdft-elements';
       }
     });
 
