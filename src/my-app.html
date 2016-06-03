@@ -25,6 +25,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="elements.html">
 
@@ -93,10 +95,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
+        <iron-ajax url="/src/contacts.json" last-response="{{contatos}}" auto></iron-ajax>
+
     <app-drawer-layout fullbleed>
 
       <!-- Drawer content -->
-      <app-drawer swipe-open>
+      <app-drawer id="leftDrawer" swipe-open>
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">View One</a>
@@ -107,24 +111,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-drawer>
       <app-drawer id="endDrawer" align="end" swipe-open>
         <div role="listbox">
-          <paper-icon-item>
-            <div class="avatar blue" item-icon></div>
-            <paper-item-body two-line>
-              <div>Photos</div>
-              <div secondary>Jan 9, 2014</div>
-            </paper-item-body>
-            <paper-icon-button icon="star" alt="favourite this!">
-            </paper-icon-button>
-          </paper-icon-item>
-          <paper-icon-item>
-            <div class="avatar" item-icon></div>
-            <paper-item-body two-line>
-              <div>Recipes</div>
-              <div secondary>Jan 17, 2014</div>
-            </paper-item-body>
-            <paper-icon-button icon="star" alt="favourite this!">
-            </paper-icon-button>
-          </paper-icon-item>
+          <template is="dom-repeat" items="[[contatos]]">
+            <paper-item on-tap="selecionaContato">
+              <img class="avatar" src="[[item.image]]">
+              <paper-item-body two-line>
+                <div>[[item.name]]</div>
+                <div secondary>[[item.shortText]]</div>
+              </paper-item-body>
+            </paper-item>
+          </template>
         </div>
       </app-drawer>
       <!-- Main content -->
@@ -148,7 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-header-layout>
 
     </app-drawer-layout>
-
+    <paper-toast id="toast" always-on-top horizontal-align="right"></paper-toast>
   </template>
 
   <script>
@@ -170,12 +165,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.endDrawer.toggle();
       },
 
+      selecionaContato: function(e) {
+          this.$.toast.text = "Selcionado: "+ e.model.item.name;
+          this.$.toast.open();
+          this.$.endDrawer.toggle();
+      },
       observers: [
         '_routePageChanged(routeData.page)'
       ],
 
       _routePageChanged: function(page) {
         this.page = page || 'tjdft-elements';
+        //this.$.leftDrawer.toggle();
       }
     });
 

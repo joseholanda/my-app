@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 <dom-module id="tree-view-item">
     <template>
@@ -49,7 +50,7 @@
             </paper-item>
         </template>
 
-
+        <paper-toast id="toast" always-on-top horizontal-align="right"></paper-toast>
 
     </template>
     <script>
@@ -100,7 +101,8 @@
             },
             _itemSelecionado: function(e) {
                 let itemName = '#' + e.currentTarget.getAttribute("data-name");
-                alert(itemName);
+                this.$.toast.text = "Selcionado: "+ itemName;
+                this.$.toast.open();
             }
 
         });
